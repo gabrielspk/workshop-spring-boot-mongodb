@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.github.gabrielspk.workshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
