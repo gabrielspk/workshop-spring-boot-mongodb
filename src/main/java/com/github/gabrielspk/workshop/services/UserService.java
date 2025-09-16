@@ -7,21 +7,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.gabrielspk.workshop.domain.User;
+import com.github.gabrielspk.workshop.dto.UserDTO;
 import com.github.gabrielspk.workshop.repositories.UserRepository;
-import com.github.gabrielspk.workshop.services.exception.ObjectNotFoundException;
+import com.github.gabrielspk.workshop.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository repository;
 	
-	public List<User> findAll() {
-		return userRepository.findAll();
+	public User fromDTO(UserDTO objDto) {
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
-	
+
+	public List<User> findAll() {
+		return repository.findAll();
+	}
+
 	public User findById(String id) {
-		Optional<User> obj = userRepository.findById(id);
+		Optional<User> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(id));
 	}
+
+	public User insert(User user) {
+		return repository.save(user);
+	}
+	
+	public void delete(String id) {
+		findById(id);
+		repository.deleteById(id);
+	} 
 }
