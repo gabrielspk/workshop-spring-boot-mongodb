@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.github.gabrielspk.workshop.domain.Post;
 import com.github.gabrielspk.workshop.domain.User;
+import com.github.gabrielspk.workshop.dto.AuthorDTO;
 import com.github.gabrielspk.workshop.repositories.PostRepository;
 import com.github.gabrielspk.workshop.repositories.UserRepository;
 
@@ -36,11 +37,10 @@ public class Instantiation implements CommandLineRunner {
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		
 		LocalDate d1 = LocalDate.parse("21/03/2025", formatter);
-		Post post1 = new Post(null, d1, "Partiu viagem", "Vou viajar pra São Paulo", maria);
+		Post post1 = new Post(null, d1, "Partiu viagem", "Vou viajar pra São Paulo", new AuthorDTO(maria));
 		
 		LocalDate d2 = LocalDate.parse("23/03/2025", formatter);
-		Post post2 = new Post(null, d2, "Bom dia", "Acordei feliz hoje", bob);
+		Post post2 = new Post(null, d2, "Bom dia", "Acordei feliz hoje", new AuthorDTO(bob));
 		postRepository.saveAll(Arrays.asList(post1, post2));
-
 	}
 }
