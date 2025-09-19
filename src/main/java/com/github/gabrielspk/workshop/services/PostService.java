@@ -1,5 +1,7 @@
 package com.github.gabrielspk.workshop.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,16 @@ public class PostService {
 	}
 	
 	public List<Post> findByTitle(String text) {
-		return repository.findByTitle(text);
+		return repository.findByTitleContainingIgnoreCase(text);
+	}
+	
+	public List<Post> fullSearch(String text, LocalDate minDate, LocalDate maxDate) {
+		LocalDateTime minDateTime = minDate.atStartOfDay();
+		LocalDateTime maxDateTime = maxDate.atTime(23, 59, 59);
+		
+		
+		System.out.println("Min: " + minDate + " | Max: " + maxDate);
+		
+		return repository.fullSearch(text, minDateTime, maxDateTime);
 	}
 }
